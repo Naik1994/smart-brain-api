@@ -6,15 +6,16 @@ import { handleRegister } from './controllers/register.js';
 import { signin } from "./controllers/signin.js";
 import { profile } from "./controllers/profile.js";
 import { faceRecognition, image } from "./controllers/image.js";
+import 'dotenv/config';
 
 const db = knex({
   client: 'pg',
   connection: {
-    host : 'smart-brain-db.chwmq8a6catc.ap-south-1.rds.amazonaws.com',
-    port: 5432,
-    user : 'postgres',
-    password: "Br!n$?fd",
-    database : 'smart-brain'
+    host : process.env.dbHost,
+    port: process.env.dbPort,
+    user : process.env.dbUser,
+    password: process.env.dbPassword,
+    database : process.env.dbName
   }
 });
 
