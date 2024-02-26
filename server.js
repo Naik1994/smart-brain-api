@@ -10,10 +10,10 @@ import { faceRecognition, image } from "./controllers/image.js";
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
+    host : 'smart-brain-db.chwmq8a6catc.ap-south-1.rds.amazonaws.com',
     port: 5432,
     user : 'postgres',
-    password: "Naik@1994",
+    password: "Br!n$?fd",
     database : 'smart-brain'
   }
 });
