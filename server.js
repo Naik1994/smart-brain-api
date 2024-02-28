@@ -7,6 +7,15 @@ import { signin } from "./controllers/signin.js";
 import { profile } from "./controllers/profile.js";
 import { faceRecognition, image } from "./controllers/image.js";
 import 'dotenv/config';
+import fs from 'fs';
+import https from 'https';
+
+const key = fs.readFileSync('certs/private.key');
+const cert = fs.readFileSync('certs/certificate.crt');
+
+const cred = {
+  key, cert
+};
 
 const db = knex({
   client: 'pg',
@@ -15,7 +24,10 @@ const db = knex({
     port: process.env.dbPort,
     user : process.env.dbUser,
     password: process.env.dbPassword,
-    database : process.env.dbName
+    database : process.env.dbName,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 });
 
@@ -40,3 +52,6 @@ expressApp.put("/image", (req, res) => image(req, res, db));
 expressApp.post("/recognizeFace", (req, res) => faceRecognition(req, res));
 
 expressApp.listen(3001, () => console.log(`Server listening on port ${3001}`));
+
+const server = https.createServer(cred, expressApp);
+server.listen(8443);
