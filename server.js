@@ -51,6 +51,8 @@ expressApp.put("/image", (req, res) => image(req, res, db));
 
 expressApp.post("/recognizeFace", (req, res) => faceRecognition(req, res));
 
+expressApp.get('/.well-known/pki-validation/679D9854A7464FF51E0B006923050236.txt', (req, res) => res.sendFile('679D9854A7464FF51E0B006923050236.txt'))
+
 expressApp.listen(3001, () => console.log(`Server listening on port ${3001}`));
 
 const server = https.createServer(cred, expressApp);
